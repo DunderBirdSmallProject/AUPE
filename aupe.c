@@ -4,10 +4,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <signal.h>
+#include <stdarg.h>
 
 
-void err_sys(const char *msg) {
-    fprintf(stderr, msg);
+void err_sys(const char *msg, ...) {
+    va_list ap;
+    va_start(ap, msg);
+    fprintf(stderr, msg, ap);
+    va_end(ap);
     exit(-1);
 }
 
