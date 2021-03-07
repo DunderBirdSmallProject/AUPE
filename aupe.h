@@ -1,8 +1,14 @@
 #ifndef AUPE_H
 #define AUPE_H
 
+#ifndef __USE_POSIX
 #define __USE_POSIX
+#endif
+
+#ifndef _POSIX_SOURCE
 #define _POSIX_SOURCE
+#endif
+
 #include <fcntl.h>
 
 void err_sys(const char *msg, ...);
