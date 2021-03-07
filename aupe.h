@@ -3,8 +3,9 @@
 
 #define __USE_POSIX
 #define _POSIX_SOURCE
-void err_sys(const char *msg);
+#include <fcntl.h>
 
+void err_sys(const char *msg, ...);
 
 /**
  * IPC related

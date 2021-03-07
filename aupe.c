@@ -10,7 +10,7 @@
 void err_sys(const char *msg, ...) {
     va_list ap;
     va_start(ap, msg);
-    fprintf(stderr, msg, ap);
+    vfprintf(stderr, msg, ap);
     va_end(ap);
     exit(-1);
 }
@@ -25,7 +25,7 @@ static void sig_usr(int signo) {
     sigflag = 1;
 }
 
-void TIME_WAIT() {
+void TELL_WAIT() {
     if(signal(SIGUSR1, sig_usr) == SIG_ERR) {
         err_sys("signal(SIGUSR1) error");
     }
