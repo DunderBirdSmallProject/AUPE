@@ -134,7 +134,7 @@ void clr_fl(int fd, int flags) {
     }
 }
 
-int flock_reg(int fd, int cmd, int type, off_t offset, int whence, off_t len) {
+int filelock_reg(int fd, int cmd, int type, off_t offset, int whence, off_t len) {
     struct flock lock;
     lock.l_type = type;
     lock.l_start = offset;
@@ -144,7 +144,7 @@ int flock_reg(int fd, int cmd, int type, off_t offset, int whence, off_t len) {
     return fcntl(fd, cmd, &lock);
 }
 
-pid_t test_flock(int fd, int type, off_t offset, int whence, off_t len) {
+pid_t test_filelock(int fd, int type, off_t offset, int whence, off_t len) {
     struct flock lock;
 
     lock.l_type = type;

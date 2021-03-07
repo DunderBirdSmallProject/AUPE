@@ -4,7 +4,7 @@
 #include <unistd.h>
 
 static void lockabyte(const char *name, int fd, off_t offset) {
-    if(writew_flock(fd, offset, SEEK_SET, 1) < 0) {
+    if(writew_filelock(fd, offset, SEEK_SET, 1) < 0) {
         err_sys("%s: writew_lock error\n", name);
     }
     printf("%s got the lock, byte %lld\n", name, (long long)offset);
