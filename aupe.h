@@ -10,16 +10,29 @@
 #endif
 
 #include <fcntl.h>
+#include <stddef.h>
+#include <stdlib.h>
+#include <sys/types.h>
 
+/**
+ * Error
+ */
 void err_sys(const char *msg, ...);
 
 /**
- * IPC related
+ * IPC
  */
 void TELL_WAIT();
 void TELL_PARENT(pid_t pid);
 void WAIT_PARENT();
 void TELL_CHILD(pid_t pid);
+
+
+/*
+ * IO
+ */
+ssize_t readn(int fd, void *ptr, size_t n);
+ssize_t writen(int fd, void *ptr, size_t n);
 
 
 void set_fl(int fd, int flags);  /* fcntl internally */

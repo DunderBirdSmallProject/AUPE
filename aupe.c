@@ -61,6 +61,53 @@ void TELL_CHILD(pid_t pid) {
 }
 
 
+/*
+ * IO
+ */
+ssize_t readn(int fd, void *ptr, size_t n) {
+    size_t nleft = n;
+    ssize_t cur_read = 0;
+    
+    while(nleft > 0) {
+        if((cur_read = read(fd, ptr, nleft)) < 0) {
+            if(nleft == n) {
+                return -1;
+            }
+            else {
+                break;
+            }
+        }
+        else if(cur_read == 0) {
+            break;
+        }
+        nleft -= cur_read;
+        ptr += cur_read;
+    }
+    return (n - nleft);
+}
+
+ssize_t writen(int fd, void *ptr, size_t n) {
+    size_t nleft = n;
+    ssize_t cur_write = 0;
+    
+    while(nleft > 0) {
+        if((cur_write = write(fd, ptr, nleft)) < 0) {
+            if(nleft == n) {
+                return -1;
+            }
+            else {
+                break;
+            }
+        }
+        else if(cur_write == 0) {
+            break;
+        }
+        nleft -= cur_write;
+        ptr += cur_write;
+    }
+    return (n - nleft);
+}
+
 void set_fl(int fd, int flags) {
     int val;
     if((val = fcntl(fd, F_GETFL)) < 0) {
