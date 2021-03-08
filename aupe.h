@@ -9,6 +9,10 @@
 #define _POSIX_SOURCE
 #endif
 
+#ifndef _POSIX_C_SOURCE
+#define _POSIX_C_SOURCE 200112L
+#endif
+
 #include <fcntl.h>
 #include <stddef.h>
 #include <stdlib.h>
