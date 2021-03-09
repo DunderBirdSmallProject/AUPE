@@ -13,8 +13,8 @@
 #define _POSIX_C_SOURCE 200112L
 #endif
 
-#ifndef __USE_XOPEN_EXTENDED
-#define __USE_XOPEN_EXTENDED
+#ifndef _GNU_SOURCE
+#define _GNU_SOURCE
 #endif
 
 #include <fcntl.h>
