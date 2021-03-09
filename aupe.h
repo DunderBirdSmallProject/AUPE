@@ -13,6 +13,10 @@
 #define _POSIX_C_SOURCE 200112L
 #endif
 
+#ifndef __USE_XOPEN_EXTENDED
+#define __USE_XOPEN_EXTENDED
+#endif
+
 #include <fcntl.h>
 #include <stddef.h>
 #include <stdlib.h>
@@ -22,6 +26,13 @@
  * Error
  */
 void err_sys(const char *msg, ...);
+
+
+/**
+ * Signal
+ */
+typedef void SigHandler(int);
+SigHandler* my_signal(int signo, SigHandler* handler);
 
 /**
  * IPC

@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <signal.h>
 #include <stdarg.h>
+#include <signal.h>
 
 
 void err_sys(const char *msg, ...) {
@@ -13,6 +14,30 @@ void err_sys(const char *msg, ...) {
     vfprintf(stderr, msg, ap);
     va_end(ap);
     exit(-1);
+}
+
+
+/**
+ * Signal
+ */
+SigHandler* my_signal(int signo, SigHandler* handler) {
+    struct sigaction act, oact;
+    act.sa_handler = handler;
+    sigemptyset(&act.sa_mask);
+    act.sa_flags = 0;
+    if(signo == SIGALRM) {
+        #ifdef SA_INTERRUPT
+        act.sa_flags |= SA_INTERRUPT;
+        #endif
+    }
+    else {
+        act.sa_flags |= SA_RESTART;
+    }
+
+    if(sigaction(signo, &act, &oact) < 0) {
+        return SIG_ERR;
+    }
+    return oact.sa_handler;
 }
 
 /**
