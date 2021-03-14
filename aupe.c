@@ -139,6 +139,10 @@ void TELL_CHILD(pid_t pid) {
     kill(pid, SIGUSR1);
 }
 
+void WAIT_CHILDREN() {
+    WAIT_PARENT();
+}
+
 
 /*
  * IO
