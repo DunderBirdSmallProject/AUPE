@@ -6,6 +6,7 @@
 #include <signal.h>
 #include <stdarg.h>
 #include <signal.h>
+#include <string.h>
 
 
 void err_sys(const char *msg, ...) {
@@ -38,6 +39,59 @@ SigHandler* my_signal(int signo, SigHandler* handler) {
         return SIG_ERR;
     }
     return oact.sa_handler;
+}
+
+/* https://github.com/adalton/apue3/tree/master/Chapter10 */
+
+#define SIG_MACRO(macro) \
+    macro(SIGHUP) \
+	macro(SIGINT) \
+	macro(SIGQUIT) \
+	macro(SIGILL) \
+	macro(SIGILL) \
+	macro(SIGTRAP) \
+	macro(SIGABRT) \
+	macro(SIGBUS) \
+	macro(SIGFPE) \
+	macro(SIGKILL) \
+	macro(SIGUSR1) \
+	macro(SIGSEGV) \
+	macro(SIGUSR2) \
+	macro(SIGPIPE) \
+	macro(SIGALRM) \
+	macro(SIGTERM) \
+	macro(SIGSTKFLT) \
+	macro(SIGCHLD) \
+	macro(SIGCONT) \
+	macro(SIGSTOP) \
+	macro(SIGTSTP) \
+	macro(SIGTTIN) \
+	macro(SIGTTOU) \
+	macro(SIGURG) \
+	macro(SIGXCPU) \
+	macro(SIGXFSZ) \
+	macro(SIGVTALRM) \
+	macro(SIGPROF) \
+	macro(SIGWINCH) \
+	macro(SIGIO) \
+	macro(SIGPWR) \
+	macro(SIGSYS)
+
+#define SIG_ARRAY(sig) [sig] = #sig,
+
+static const char* sig_name[] = {
+    SIG_MACRO(SIG_ARRAY)
+};
+
+int sig2str(const int signo, char* const str) {
+    if(signo < 0 || signo > sizeof(sig_name) / sizeof(sig_name[0])) {
+        return -1;
+    }
+    if(sig_name[signo] == NULL) {
+        return -1;
+    }
+    strcpy(str, sig_name[signo]);
+    return 0;
 }
 
 /**

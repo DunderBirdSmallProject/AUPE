@@ -17,40 +17,39 @@
 #define _GNU_SOURCE
 #endif
 
+#define SIG_NAME_MAXLEN 10
+
 #include <fcntl.h>
 #include <stddef.h>
 #include <stdlib.h>
 #include <sys/types.h>
 
-/**
- * Error
- */
+/* Error */
 void err_sys(const char *msg, ...);
 
 
-/**
- * Signal
- */
+/* Signal */
 typedef void SigHandler(int);
 SigHandler* my_signal(int signo, SigHandler* handler);
-
 /**
- * IPC
+ * @return -1 for unsucessful, 0 for successful.
  */
+int sig2str(const int signo, char* const str);
+
+
+/* IPC */
 void TELL_WAIT();
 void TELL_PARENT(pid_t pid);
 void WAIT_PARENT();
 void TELL_CHILD(pid_t pid);
 
 
-/*
- * IO
- */
+/* IO */
 ssize_t readn(int fd, void *ptr, size_t n);
 ssize_t writen(int fd, void *ptr, size_t n);
 
 
-void set_fl(int fd, int flags);  /* fcntl internally */
+void set_fl(int fd, int flags);
 void clr_fl(int fd, int flags);
 
 int filelock_reg(int fd, int cmd, int type, off_t offset, int whence, off_t len);
