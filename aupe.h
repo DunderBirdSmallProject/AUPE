@@ -9,6 +9,10 @@
 #define _POSIX_SOURCE
 #endif
 
+#ifndef __USE_UNIX98
+#define __USE_UNIX98
+#endif
+
 #ifndef _POSIX_C_SOURCE
 #define _POSIX_C_SOURCE 200112L
 #endif
