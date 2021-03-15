@@ -12,6 +12,7 @@ int main() {
             time(&now);
             tmnow = localtime(&now);
             printf("%d\n", tmnow->tm_sec);
+            cnt = 0;
         }
         sleep(60);
         cnt += 1;
